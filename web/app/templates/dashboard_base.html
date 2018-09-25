@@ -1,0 +1,78 @@
+{% load cms_tags menu_tags sekizai_tags %}
+{% load render_bundle from webpack_loader %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        {% render_bundle 'main' 'css' %}
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        <div class="layout-dashboard" data-layout-dashboard>
+            <div class="layout-dashboard__header">
+                <div class="layout-dashboard__header-container">
+                    <div class="layout-dashboard__header-logo">
+                        Logo
+                    </div>
+                    <div class="layout-dashboard__header-title">
+                        Главная
+                    </div>
+                    <div class="layout-dashboard__header-user">
+                        <div class="layout-dashboard__header-user-name">
+                             {{ user.email }}
+                        </div>
+                        <div class="layout-dashboard__header-user-image" style="background-image: url('https://www.placehold.it/100x100')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layout-dashboard__header-mobile">
+                <div class="layout-dashboard__header-mobile-userimage" style="background-image: url('https://www.placehold.it/100x100')">
+                </div>
+                <div class="layout-dashboard__header-mobile-group">
+                    <div class="layout-dashboard__header-mobile-group-pagetitle">
+                        Главная
+                    </div>
+                    <div class="layout-dashboard__header-mobile-group-username">
+                        {{ user.email }}
+                    </div>
+                </div>
+                <div class="layout-dashboard__header-mobile-burger" data-layout-dashboard-child="sidebarOpen">
+                    <div class="icon icon-burger"></div>
+                </div>
+            </div>
+
+            <div class="layout-dashboard__sidebar" data-layout-dashboard-child="sidebar">
+                <div class="layout-dashboard__sidebar-overlay" data-layout-dashboard-child="sidebarClose"></div>
+                <div class="layout-dashboard__sidebar-menu">
+                    <a class="layout-dashboard__sidebar-menu-item {% if request.resolver_match.url_name == 'index' %}layout-dashboard__sidebar-menu-item_active{% endif %}" href="/dashboard">
+                        <span class="layout-dashboard__sidebar-menu-item-text">
+                            Главная
+                        </span>
+                    </a>
+                   
+
+                    <a class="layout-dashboard__sidebar-menu-item" href="/accounts/logout">
+                        <span class="layout-dashboard__sidebar-menu-item-text">
+                            Выйти
+                        </span>
+                    </a>
+                </div>
+                <div class="layout-dashboard__sidebar-close" data-layout-dashboard-child="sidebarClose">
+                    <div class="icon icon-close"></div>
+                </div>
+            </div>
+            <div class="layout-dashboard__content">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+        {% render_block "js" %}
+        {% render_bundle 'main' 'js' %}
+    </body>
+</html>
+

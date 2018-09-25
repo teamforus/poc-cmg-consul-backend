@@ -1,0 +1,24 @@
+{% load cms_tags menu_tags sekizai_tags %}
+{% load render_bundle from webpack_loader %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        {% render_bundle 'main' 'css' %}
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        {% block header %}{% endblock header %}
+        {% block content %}{% endblock content %}
+        {% block footer %}{% endblock footer %}
+        {% block other %}{% endblock other %}
+        {% render_block "js" %}
+        {% render_bundle 'main' 'js' %}
+    </body>
+</html>
+

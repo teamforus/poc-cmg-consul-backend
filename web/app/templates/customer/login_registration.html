@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Login or register' %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ homepage_url }}">{% trans 'Home' %}</a>
+        </li>
+        <li class="active">{% trans 'Login or register' %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+
+    <div class="page-auth" data-page-auth>
+        <div class="page-auth__wrapper {% if is_login %}page-auth__wrapper_active{% endif %}" data-page-auth-child="login">
+            <div class="col-sm-6 login_form page-auth__section">
+                <form id="login_form" action="{{ request.get_full_path }}" method="post" class="well ui-form page-auth__section-form" data-component-form>
+                    <h2 class="ui-form__title">{% trans 'Log In' %}</h2>
+                    {% csrf_token %}
+                    <div class="ui-form__section">
+                        {% include "partials/form_fields.html" with form=login_form %}
+                    </div>
+        {#                <p><a href="{% url 'password-reset' %}">{% trans "I've forgotten my password" %}</a></p>#}
+                    <!-- <div class="ui-form__options">
+                        <label class="ui-checkbox">
+                            <input class="ui-checkbox__input" type="checkbox"/>
+                            <div class="ui-checkbox__mark"></div>
+                            <div class="ui-checkbox__title">Test</div>
+                        </label>
+                    </div> -->
+                    <div class="ui-form__submit">
+                        <button name="login_submit" type="submit" value="Log In" class="ui-button ui-button_disabled" data-loading-text="{% trans "Logging in..." %}" data-component-form-child="submit">{% trans 'Log In' %}</button>
+                    </div>
+                </form>
+                <div class="page-auth__section-switcher">
+                    Нет аккаунта? <a data-page-auth-child="switcher">Зарегистрироваться</a>
+                </div>
+            </div>
+        </div>
+        <div class="page-auth__wrapper {% if not is_login %}page-auth__wrapper_active{% endif %}" data-page-auth-child="register">
+            <div class="col-sm-6 register_form page-auth__section">
+                <form id="register_form" action="{{ request.get_full_path }}" method="post" class="well ui-form page-auth__section-form" data-component-form>
+                    <h2 class="ui-form__title">{% trans 'Register' %}</h2>
+                    {% csrf_token %}
+                    <div class="ui-form__section">
+                        {% include "partials/form_fields.html" with form=registration_form %}
+                    </div>
+                    <div class="ui-form__submit">
+                        <button name="registration_submit" type="submit" value="Register" class="ui-button ui-button_disabled" data-loading-text="{% trans 'Registering...' %}" data-component-form-child="submit">{% trans 'Register' %}</button>
+                    </div>
+                    <div class="ui-form__hint">
+                        Нажимая эту кнопку, вы подтверждаете, что ознакомились с <a href="#" target="_blank">Правилами пользования</a>
+                    </div>
+                </form>
+                <div class="page-auth__section-switcher">
+                    Уже зарегистрированы? <a data-page-auth-child="switcher">Войти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

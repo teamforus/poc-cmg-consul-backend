@@ -1,0 +1,17 @@
+*.idea/
+*.pyc
+*env/
+*db.sqlite3
+
+static/
+web/node_modules/
+web/app/node_modules/
+web/app/assets/dist
+web/static/
+web/app/static/
+web/media/
+
+
+.env
+.env.local
+web/investplatform/webpack-stats.json

@@ -1,0 +1,129 @@
+@import '../../../theme/common';
+@import './invest';
+@import './invest-processing';
+@import './buy';
+@import './buy-processing';
+
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+    z-index: 1000;
+    
+    display: none;
+	justify-content: center;
+	align-items: center;
+	overflow: auto;
+    
+	background-color: rgba(0,0,0,0.7);
+	outline: none;
+
+    animation-name: fadeIn;
+    animation-duration: @duration-fast;
+    animation-fill-mode: forwards;
+    animation-timing-function: @easing-default;
+
+    &_active {
+        display: flex;
+    }
+    &_exit {
+        animation-name: fadeOut;
+        animation-duration: @duration-fast;
+        animation-fill-mode: forwards;
+        animation-timing-function: @easing-default;
+    }
+    
+    &__overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+
+        cursor: pointer;
+    }
+    
+    &__content {
+        position: relative;
+        border-radius: 0;
+        padding: 15px;
+        margin: auto;
+        
+        outline: none;
+
+        animation-name: scaleIn;
+        animation-duration: @duration-fast;
+        animation-fill-mode: forwards;
+        animation-timing-function: @easing-default;
+    }
+    &_exit &__content {
+        animation-name: scaleOut;
+        animation-duration: @duration-fast;
+        animation-fill-mode: forwards;
+        animation-timing-function: @easing-default;
+    }
+
+    &__close {
+        position: absolute;
+        top: 14px;
+        right: 11px;
+        z-index: 1;
+
+        padding: 6px;
+
+        font-size: 2.4rem;
+
+        cursor: pointer;
+    }
+
+
+    @media @media-md-down {
+        &__content {
+            width: 100%;
+        }
+        &__close {
+            top: 11px;
+            right: 6px;
+            
+            font-size: 1.8rem;
+        }
+    }
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes scaleOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.8);
+    }
+}

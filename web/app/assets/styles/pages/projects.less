@@ -1,0 +1,230 @@
+@import 'theme/common';
+
+.page-projects {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1480px;
+    padding: 61px 20px;
+    margin: 0;
+    &__item {
+        width: ~'calc(50% - 40px)';
+        margin: 0 20px 30px;
+        
+        background-color: @color-background;
+
+        border-radius: 8px;
+        box-shadow: 0 5px 40px 0 @color-background-support;
+        &-header {
+            position: relative;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 20px 30px 16px;
+            border-bottom: 1px solid @color-background-support;
+
+            &-toggler {
+                display: none;
+            }
+            &-title {
+                font-size: 2rem;
+                font-weight: 800;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            &-date {
+                color: @color-text-support;
+                text-align: right;
+                white-space: nowrap;
+                padding-left: 20px;
+                &-title {
+                    margin-bottom: 2px;
+
+                    font-size: 1.2rem;
+                }
+                &-value {
+                    font-size: 1rem;
+                }
+            }
+        }
+        &-body {
+            padding: 23px 30px 36px;
+            &:after {
+                content: '';
+    
+                display: block;
+                float: none;
+                clear: both;
+            }
+            &-image {
+                width: 120px;
+                height: 120px;
+                margin-right: 15px;
+                float: left;
+
+                background-color: @color-background-support;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                border-radius: 5px;
+            }
+            &-stat {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: wrap;
+                float: left;
+                width: ~'calc(100% - 135px)';
+
+                & ~ & {
+                    margin-top: 5px;
+                }
+                &-title {
+                    margin-right: 7px;
+
+                    color: @color-text-support;
+                    font-size: 1.2rem;
+                }
+                &-value {
+                    font-size: 1.4rem;
+                    text-transform: uppercase;
+                    white-space: nowrap;
+                }
+            }
+            &-description {
+                float: left;
+                width: ~'calc(100% - 135px)';
+                margin-top: 12px;
+
+                font-size: 1.2rem;
+                line-height: 1.67;
+                &-text {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical; 
+                    overflow: hidden;
+                    max-height: 80px;
+                    margin-bottom: 2px;
+                }
+                &-link {
+                    width: fit-content;
+                }
+            }
+        }
+    }
+
+    @media @media-xl-down {
+        padding: 30px 13px;
+
+        &__item {
+            width: ~'calc(50% - 24px)';
+            margin: 0 12px 30px;
+        }
+    }
+    @media @media-md-down {
+        &__item {
+            width: ~'calc(100% - 24px)';
+            margin: 0 12px 30px;
+        }
+    }
+    @media @media-sm-down {
+        padding: 15px 0;
+
+        &__item {
+            width: ~'calc(100% - 30px)';
+            margin: 0 15px 30px;
+            &-header {
+                flex-wrap: wrap;
+                padding: 15px 15px 10px;
+
+                transition-property: border-color;
+                transition-duration: @duration-fast;
+                transition-timing-function: @easing-default;
+                &-toggler {
+                    position: absolute;
+                    top: 10px;
+                    right: 9px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 25px;
+                    height: 25px;
+
+                    cursor: pointer;
+
+                    &-icon {
+                        color: @color-accent;
+                        font-size: 1.4rem;
+
+                        transition-property: transform;
+                        transition-duration: @duration-fast;
+                        transition-timing-function: @easing-default;
+                    }
+                }
+                &-title {
+                    width: 100%;
+                    margin-bottom: 8px;
+                    overflow: visible;
+
+                    font-size: 1.8rem;
+                    letter-spacing: 0.05rem;
+                    white-space: normal;
+                }
+                &-date {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: baseline;
+                    padding-left: 0;
+                    
+                    text-align: left;
+                    &-title {
+                        margin-right: 5px;
+                    }
+                }
+            }
+            &_collapsed &-header {
+                border-color: transparent;
+
+                &-toggler-icon {
+                    transform: rotate(180deg);
+                }
+            }
+            &_collapsed &-body-wrapper {
+                max-height: 0;
+                &:before {
+                    display: none;
+                }
+            }
+            &-body {
+                padding: 15px 15px 30px;
+                &-wrapper {
+                    max-height: 230px;
+                    overflow: hidden;
+
+                    transition-property: max-height;
+                    transition-duration: @duration-fast;
+                    transition-timing-function: @easing-default;
+                }
+                &-image {
+                    width: 80px;
+                    height: 80px;
+                }
+                &-stat {
+                    width: ~'calc(100% - 95px)';
+                }
+                &-description {
+                    width: 100%;
+                    padding-top: 15px;
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+}

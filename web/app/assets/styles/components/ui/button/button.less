@@ -1,0 +1,68 @@
+@import 'theme/common';
+
+.ui-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+
+	font-size: 18px;
+	font-weight: 800;
+	letter-spacing: 1px;
+	text-align: center;
+	color: @color-text-inverted;
+
+	background: @color-accent;
+
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: inset 0 0 0 1px @color-accent;
+	user-select: none;
+
+	transition-property: background, box-shadow, color;
+	transition-duration: @duration-fast;
+	transition-timing-function: @easing-default;
+
+	&:hover {
+		background: lighten(@color-accent, 30%);
+	}
+
+	&_disabled,
+	&_disabled:hover {
+		color: @color-text-support;
+
+		background: @color-support;
+	
+		box-shadow: inset 0 0 0 0 @color-support;
+		cursor: auto;
+	}
+	&_weak {
+		color: @color-text-main;
+
+		background: @color-background-support;
+	
+		box-shadow: inset 0 0 0 0 @color-accent;
+
+		&:hover {
+			background: @color-background-dark;
+		
+			box-shadow: inset 0 0 0 1px @color-accent;
+		}
+		&_negative:hover {
+			background: fade(@color-error, 20%);
+		
+			box-shadow: inset 0 0 0 1px @color-error;
+		}
+		&_neutral:hover {
+			background: fade(@color-warning, 20%);
+		
+			box-shadow: inset 0 0 0 1px @color-warning;
+		}
+		&_positive:hover {
+			background: fade(@color-success, 20%);
+		
+			box-shadow: inset 0 0 0 1px @color-success;
+		}
+	}
+}

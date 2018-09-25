@@ -1,0 +1,122 @@
+@import 'theme/common';
+
+.modal-invest {
+    width: 540px;
+    padding: 40px 60px;
+    margin: auto;
+
+    background: @color-background;
+
+    border-radius: 8px;
+    &__title {
+        width: 100%;
+        margin-bottom: 10px;
+
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    &__project {
+        width: 100%;
+        margin-bottom: 40px;
+
+        font-size: 2.4rem;
+        font-weight: 800;
+        text-align: center;
+    }
+    &__field {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 15px;
+        &-control {
+            width: ~'calc(100% - 90px)';
+            &-input {
+                font-size: 3rem;
+                text-align: center;
+            }
+        }
+        &-unit {
+            width: 90px;
+            
+            font-size: 2.4rem;
+            text-align: right;
+            text-transform: uppercase;
+        }
+    }
+    &__limits {
+        margin-bottom: 40px;
+        &-item {
+            margin-right: 8px;
+
+            font-size: 1.4rem;
+            & ~ & {
+                margin-top: 6px;
+            }
+            &-value {
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+    }
+    &__buttons {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: ~'calc(100% + 20px)';
+        margin: 0 -10px 20px;
+        &-item {
+            width: ~'calc(50% - 20px)';
+            height: 60px;
+            margin: 0 10px;
+        }
+    }
+    &__rules {
+        max-width: 400px;
+        margin: 0 auto;
+
+        font-size: 1.4rem;
+        line-height: 1.3;
+        text-align: center;
+    }
+    @media @media-sm-down {
+        width: 100%;
+        padding: 30px 15px 40px;
+        &__title {
+            margin-bottom: 5px;
+    
+            font-size: 1.4rem;
+        }
+        &__project {
+            margin-bottom: 31px;
+    
+            font-size: 1.8rem;
+        }
+        &__field {
+            margin-bottom: 30px;
+            &-control {
+                width: ~'calc(100% - 70px)';
+                &-input {
+                    font-size: 2.4rem;
+                }
+            }
+            &-unit {
+                width: 70px;
+                padding-right: 7px;
+
+                font-size: 2rem;
+            }
+        }
+        &__buttons {
+            width: ~'calc(100% + 8px)';
+            margin: 0 -4px 15px;
+            &-item {
+                width: ~'calc(50% - 8px)';
+                margin: 0 4px;
+            }
+        }
+        &__rules {
+            font-size: 1.2rem;
+        }
+    }
+}

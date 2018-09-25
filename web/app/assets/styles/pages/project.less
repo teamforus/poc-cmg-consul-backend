@@ -1,0 +1,274 @@
+@import 'theme/common';
+
+.page-project {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1480px;
+    padding: 61px 40px;
+    margin: 0;
+    &__card {
+        width: 100%;
+        margin: 0 0 30px;
+        
+        background-color: @color-background;
+
+        border-radius: 8px;
+        box-shadow: 0 5px 40px 0 @color-background-support;
+        &-header {
+            position: relative;
+            
+            padding: 20px 70px 15px 30px;
+            border-bottom: 1px solid @color-background-support;
+
+            &-close {
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                z-index: 1;
+
+                font-size: 2.4rem;
+                color: @color-accent;
+                text-decoration: none;
+
+                cursor: pointer;
+            }
+            &-title {
+                font-size: 3rem;
+                font-weight: 800;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 100%;
+                margin-bottom: 8px;
+            }
+            &-date {
+                display: flex;
+                justify-content: flex-start;
+                align-items: baseline;
+                
+                color: @color-text-support;
+                white-space: nowrap;
+                font-size: 1.4rem;
+                &-title {
+                    margin-right: 10px;
+                }
+            }
+        }
+        &-body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 30px;
+            &-image {
+                width: 60%;
+                height: 300px;
+
+                background-color: @color-background-support;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                border-radius: 5px;
+            }
+            &-stats {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 40%;
+                padding-left: 26px;
+                &-progress {
+                    position: relative;
+
+                    width: 100%;
+                    padding-top: 35px;
+                    margin-bottom: 20px;
+
+                    &-bar {
+                        width: 100%;
+                        height: 5px;
+                        overflow: hidden;
+
+                        background: @color-background-support;
+
+                        border-radius: 3px;
+
+                        &-indicator {
+                            height: 100%;
+                            background: @gradient-main;
+                        }
+                    }
+                    &-value {
+                        position: absolute;
+                        bottom: 15px;
+                        z-index: 2;
+
+                        color: @color-accent;
+                        font-size: 2rem;
+                        font-weight: 700;
+
+                        transform: translateX(-50%);
+                    }
+                    &-point {
+                        position: absolute;
+                        bottom: -2.5px;
+                        z-index: 1;
+
+                        width: 10px;
+                        height: 10px;
+
+                        background: @color-rare;
+
+                        border-radius: 50%;
+                        transform: translateX(-50%);
+                        box-shadow: 0 0 1px 5px fade(@color-rare, 20%);
+                    }
+                }
+                &-item {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-wrap: wrap;
+                    width: 50%;
+                    margin: 0 0 auto;
+                    padding-bottom: 25px;
+                    &-title {
+                        width: 100%;
+                        margin-right: 7px;
+    
+                        color: @color-text-support;
+                        font-size: 1.4rem;
+                    }
+                    &-value {
+                        margin-right: 5px;
+
+                        font-size: 4rem;
+                        font-weight: 600;
+                    }
+                    &-unit {
+                        margin-top: 5px;
+
+                        font-size: 1.4rem;
+                        text-transform: uppercase;
+                    }
+                }
+                &-button {
+                    margin-top: 20px;
+                    height: 60px;
+                    width: 100%;
+                    max-width: 300px;
+                }
+            }
+            &-description {
+                width: 60%;
+                margin-top: 30px;
+
+                &-title {
+                    margin-bottom: 10px;
+
+                    color: @color-text-support;
+                    font-size: 1.4rem;
+                }
+                &-text {
+                    font-size: 1.6rem;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+
+    @media @media-lg-down {
+        padding: 30px 25px;
+
+        &__card {
+            &-header {
+                padding: 15px 20px 10px;
+                &-close {
+                    top: 25px;
+                    right: 20px;
+
+                    font-size: 2rem;
+                }
+            }
+            &-body {
+                padding: 15px 20px 30px;
+                &-image {
+                    width: 100%;
+                    height: 240px;
+                    margin-bottom: 15px;
+                }
+                &-stats {
+                    width: 100%;
+                    padding-left: 0;
+                    &-button {
+                        margin-top: 0;
+                    }
+                }
+                &-description {
+                    width: 100%;
+                    margin-top: 40px;
+                }
+            }
+        }
+    }
+    @media @media-sm-down {
+        padding: 15px;
+
+        &__card {
+            &-header {
+                padding: 15px 15px 10px;
+                &-close {
+                    top: 19px;
+                    right: 15px;
+                }
+                &-title {
+                    width: 100%;
+                    margin-bottom: 8px;
+                    overflow: visible;
+
+                    font-size: 1.8rem;
+                    letter-spacing: 0.05rem;
+                    white-space: normal;
+                }
+                &-date {
+                    font-size: 1rem;
+                }
+            }
+            &-body {
+                padding: 15px 15px 30px;
+                &-image {
+                    height: 150px;
+                }
+                &-stats {
+                    &-progress {
+                        padding-top: 25px;
+                        &-value {
+                            font-size: 1.6rem;
+                        }
+                    }
+                    &-item {
+                        &-title {
+                            margin-bottom: 3px;
+                        }
+                        &-value {
+                            width: 100%;
+
+                            font-size: 3.6rem;
+                        }
+                        &-unit {
+                            margin-top: 0;
+                        }
+                    }
+                }
+                &-description {
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}

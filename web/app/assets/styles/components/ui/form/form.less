@@ -1,0 +1,267 @@
+@import 'theme/common';
+
+.ui-form {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+
+	font-size: 1.6rem;
+    &__title {
+        width: 100%;
+        margin: 7px auto 29px;
+        
+        font-size: 6.4rem;
+        font-weight: 900;
+        text-align: center;
+    }
+	&__section {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: ~'calc(100% + 30px)';
+		padding: 0;
+		border: none;
+		margin: 0 -15px;
+	}
+	&__field {
+		width: ~'calc(100% - 30px)';
+		margin: 0 15px 27px;
+		&_half {
+			width: ~'calc(50% - 30px)';
+		}
+		&-label {
+			display: block;
+			width: 100%;
+			margin: 0 15px 10px;
+		}
+	}
+	&__error {
+		margin: 10px 30px;
+
+		color: @color-error;
+		font-size: 1.4rem;
+	}
+	&__control {
+		position: relative;
+		> input {
+			width: 100%;
+			height: 60px;
+			padding: 20px 14px;
+
+			background: fade(@color-background-support, 30%);
+
+			border-radius: 8px;
+			box-shadow: inset 0 0 0 0 @color-accent;
+
+			transition-property: background, box-shadow;
+			transition-duration: @duration-fast;
+			transition-timing-function: @easing-default;
+
+			&::placeholder {
+				color: @color-text-support;
+			}
+
+			&:focus {
+				background: @color-background;
+
+				box-shadow: inset 0 0 0 1px @color-accent;
+
+				&::placeholder {
+					color: @color-background;
+				}
+			}
+		}
+		&-errors {
+			position: absolute;
+			bottom: ~'calc(100% + 10px)';
+			right: 3px;
+			z-index: 1;
+
+			max-width: 100%;
+
+			color: @color-error;
+			font-size: 1.4rem;
+
+			opacity: 0;
+			pointer-events: none;
+
+			transition-property: opacity;
+			transition-duration: @duration-fast;
+			transition-timing-function: @easing-default;
+		}
+		&_error {
+			> input {
+				box-shadow: inset 0 0 0 1px @color-error;
+			}
+		}
+		&_error &-errors {
+			opacity: 1;
+
+			pointer-events: all;
+		}
+	}
+	&__submit {
+		max-width: 300px;
+		width: 100%;
+		height: 60px;
+		margin: 13px auto;
+	}
+	&__hint {
+		max-width: 290px;
+		margin: 0 auto;
+
+		font-size: 1.4rem;
+		line-height: 1.25;
+		text-align: center;
+	}
+	&__textarea {
+		width: 100%;
+		height: 100%;
+		overflow-y: auto;
+
+		font-size: 1.8rem;
+		line-height: 3rem;
+
+		resize: none;
+
+		&::placeholder {
+			color: @color-text-support;
+		}
+		&::-webkit-scrollbar {
+			width: 8px;
+			height: 8px;
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+			border-radius: 4px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: @color-background-support;
+			border-radius: 4px;
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background: @color-text-support;
+		}
+		
+		&-wrapper {
+			border-bottom: 1px solid @color-main;
+		}
+	}
+	&__label {
+		display: block;
+		
+		font-size: 1.3rem;
+		color: @color-text-support;
+		text-transform: uppercase;
+		letter-spacing: 0.07rem;
+	}
+	&__dropdown {
+		width: 100%;
+		position: relative;
+		border-bottom: 1px solid @color-main;
+
+		cursor: pointer;
+
+		&-trigger {
+			width: 100%;
+			height: 50px;
+			
+			color: @color-text-support;
+			font-size: 1.8rem;
+			line-height: 52px;
+			text-align: center;
+
+			cursor: pointer;
+		}
+		&-arrow {
+			position: absolute;
+			top: 50%;
+			right: 14px;
+			z-index: 0;
+
+			border-width: 6px 4px 0px 4px;
+			border-color: @color-text-support transparent transparent transparent;
+			border-style: solid;
+		}
+
+		&-real-select {
+			display: none;
+		}
+
+		&-selected {
+			display: block;
+			border: none;
+			padding: 0;
+			width: 100%;
+			height: 50px;
+			
+			color: @color-text-main;
+			font-size: 1.8rem;
+			line-height: 52px;
+			text-align: center;
+			
+			background: rgba(0, 0, 0, 0);
+
+			cursor: pointer;
+
+			&_disabled {
+				color: @color-text-support;
+			}
+		}
+
+		&-options {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			
+			display: none;
+			width: 100%;
+			border: 1px solid @color-main;
+
+			background: @color-background;
+
+			&:hover &-item_active {
+				color: @color-text-support;
+
+				background: @color-background-support;
+			}
+			&:hover &-item:hover {
+				color: @color-text-inverted;
+
+				background: @color-accent;
+			}
+			&-item {
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+				width: 100%;
+				min-height: 50px;
+				padding: 5px 10px;
+				
+				color: @color-text-support;
+				font-size: 1.8rem;
+				line-height: 1.3;
+				text-align: left;
+
+				&_active {
+					color: @color-text-inverted;
+					background: @color-accent;
+				}
+				&_disabled {
+					display: none;
+				}
+			}
+		}
+		&_active &-options{
+			display: block;
+		}
+	}
+	@media  @media-md-down {
+		&__title {
+			font-size: 3.2rem;
+		}
+	}
+}

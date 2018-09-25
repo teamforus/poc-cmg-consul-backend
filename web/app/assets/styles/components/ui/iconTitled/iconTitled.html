@@ -1,0 +1,19 @@
+
+<div class="ui-icon-titled">
+  <div class="
+    ui-icon-titled__icon
+    icon
+    icon-{{ icon }}
+    "
+    style="
+    {% if iconsize %}font-size: {{iconsize}};{% endif %}
+    {% if iconwidth %}width: {{iconwidth}};{% endif %}
+    "
+    >
+  </div>
+  <div class="ui-icon-titled__title"
+    {% if titlesize %}style="font-size: {{titlesize}}"{% endif %}
+    >
+    {{ title }}
+  </div>
+</div>

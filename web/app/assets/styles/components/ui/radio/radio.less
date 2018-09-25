@@ -1,0 +1,59 @@
+@import 'theme/common';
+
+.ui-radio {
+	display: block;
+	position: relative;
+	padding-left: 46px;
+	height: 30px;
+
+	font-size: 1.6rem;
+	font-weight: normal;
+	color: #444245;
+
+	cursor: pointer;
+	user-select: none;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 0;
+		width: 30px;
+		height: 30px;
+		border: solid 1px @color-main;
+		
+		background-color: rgba(0, 0, 0, 0);
+		border-radius: 100%;
+	}
+
+	&__mark {
+		position: absolute;
+		top: 12px;
+		left: 10px;
+		width: 10px;
+		height: 10px;
+
+		background: @color-main;
+		border-radius: 100%;
+		opacity: 0;
+		transform: scale(0.1);
+
+		transition-property: transform, opacity;
+		transition-duration: @duration-fast;
+		transition-timing-function: @easing-default;
+	}
+	&__title {
+		line-height: 30px;
+	}
+
+	&__input:checked ~ &__mark {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	&__input {
+		display: none;
+
+		cursor: pointer;
+	}
+}

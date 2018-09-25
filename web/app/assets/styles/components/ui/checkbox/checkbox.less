@@ -1,0 +1,56 @@
+@import 'theme/common';
+
+.ui-checkbox {
+	display: block;
+	position: relative;
+	padding-left: 46px;
+	height: 30px;
+
+	font-size: 1.6rem;
+	font-weight: normal;
+	color: #444245;
+
+	cursor: pointer;
+	user-select: none;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 0;
+		width: 24px;
+		height: 24px;
+		
+		background: @color-background-support;
+	}
+
+	&__mark {
+		position: absolute;
+		top: 12px;
+		left: 5px;
+		width: 20px;
+		height: 20px;
+
+		background: @color-accent;
+		opacity: 0;
+		transform: scale(0.1);
+
+		transition-property: transform, opacity;
+		transition-duration: @duration-fast;
+		transition-timing-function: @easing-default;
+	}
+	&__title {
+		line-height: 30px;
+	}
+
+	&__input:checked ~ &__mark {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	&__input {
+		display: none;
+
+		cursor: pointer;
+	}
+}

@@ -1,0 +1,56 @@
+@import 'theme/common';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: 10px;
+    line-height: 1;
+    color: @color-text-main;
+}
+a {
+    cursor: pointer;
+    color: @color-text-accent;
+    text-decoration: underline;
+}
+img {
+    display: block;
+    max-width: 100%;
+}
+input, textarea {
+    display: block;
+    max-width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    &::placeholder {
+        color: inherit;
+    }
+}
+button {
+    display: block;
+    max-width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    color: inherit;
+
+    background: transparent;
+    
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    cursor: pointer;
+}
+.icon {
+    text-rendering: geometricPrecision;
+}
