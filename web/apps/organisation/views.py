@@ -15,7 +15,7 @@ from qr_code.views import get_qr_code_option_from_request, cache_qr_code
 
 from apps.organisation.forms import OrganisationRegisterForm
 from apps.organisation.mixins import RegisterOrganisationMixin
-from apps.organisation.models import Organisation
+from apps.organisation.models import OrganisationItem
 
 
 class RegistraterView(RegisterOrganisationMixin, generic.FormView):
@@ -33,7 +33,7 @@ class RegistraterView(RegisterOrganisationMixin, generic.FormView):
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(
             *args, **kwargs)
-        ctx['organisations'] = Organisation.objects.get_user_organisations(self.request.user)
+        ctx['organisations'] = OrganisationItem.objects.get_user_organisations(self.request.user)
         # ctx['cancel_url'] = safe_referrer(self.request, '')
         return ctx
 

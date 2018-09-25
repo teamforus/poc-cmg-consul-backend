@@ -10,7 +10,7 @@ class OrganisationManager(models.Manager):
         return self.get_queryset().filter(owner=user).all()
 
 
-class Organisation(models.Model):
+class OrganisationItem(models.Model):
     title = models.CharField(max_length=200, help_text="Enter organisation name", null=True, blank=False)
 
     public_key = models.CharField(max_length=200, help_text="Public key", null=True, blank=False)
@@ -46,7 +46,7 @@ class Organisation(models.Model):
         if not self.private_key:
             self.private_key = self.init_key()
 
-        super(Organisation, self).save(*args, **kwargs)
+        super(OrganisationItem, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
