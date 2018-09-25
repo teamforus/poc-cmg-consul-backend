@@ -28,6 +28,10 @@ class Migration(migrations.Migration):
                 'ordering': ['-pk'],
             },
         ),
+        migrations.RemoveField(
+            model_name='organisation',
+            name='owner',
+        ),
         migrations.DeleteModel(
             name='Organisation',
         ),
