@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'apps.core',
     'apps.customer',
     'apps.dashboard',
+    'apps.organisation'
 )
 
 WEBPACK_LOADER = {
