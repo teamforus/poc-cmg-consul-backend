@@ -1,0 +1,101 @@
+
+{% extends "dashboard_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="page-index">
+    <div class="page-index__column">
+        <div class="page-index__balance">
+            <div class="page-index__balance-header">
+                <div class="page-index__balance-header-title">
+                    {% trans 'Create organisations' %}
+                </div>
+            </div>
+            <div class="page-index__balance-body">
+                    <div class="page-index__balance-body-value">
+                        {{ organisations|length }} organisations
+                    </div>
+                    <div class="page-index__balance-body-add" data-modal-open="buy">
+
+                    </div>
+                </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="page-index__column">
+            <div class="page-index__actions" data-component-toggler-target="actions">
+                <div class="page-index__actions-header">
+                    <div class="page-index__actions-header-title">
+                        {% trans 'Organisations' %}
+                    </div>
+                    <div class="page-index__actions-header-toggler"
+                        data-component-toggler
+                        data-component-toggler-class="page-index__actions_collapsed"
+                        data-component-toggler-target-value="actions">
+                        <div class="page-index__actions-header-toggler-icon icon icon-caret"></div>
+                    </div>
+                </div>
+                <div class="page-index__actions-body">
+                    {% if organisations|length > 0 %}
+                        {% for item in organisations %}
+                            <div class="page-index__actions-body-item">
+                                <div class="page-index__action">
+                                        <div class="page-index__action-column">
+                                            <div class="page-index__action-id">
+                                                 <a href="{{ item.get_qr_request_url }}" target="_blank"> View qr </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="page-index__action-column">
+                                            <div class="page-index__action-amount">
+                                                    <div class="page-index__action-amount-value">
+                                                    <a href="{{ item.get_absolute_url }}"> {{ item.title }} </a>
+
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="page-index__action-column">
+                                            <div class="page-index__action-date">
+                                                {{ instance.created|date:"d.m.Y" }}
+                                            </div>
+                                            <div class="page-index__action-time">
+                                                {{ instance.created|date:"H:m" }}
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="page-index__actions-body-placeholder">
+                            {% trans 'Your organisations will be displayed here' %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</div>
+<div class="modal" data-modal="buy">
+        <div class="modal__overlay" data-modal-close="buy"></div>
+        <div class="modal__content" data-component-buy>
+
+            <div class="modal-buy">
+                <form id="register_form" method="post" class="form-stacked">
+                {% csrf_token %}
+                {% include "partials/form_fields.html"  %}
+                <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg" data-loading-text="{%trans 'Registering...' %}" data-component-buy-child="submit">{% trans 'Register' %}</button>
+                {% if cancel_url %}
+                    {% trans "or" %} <a href="{{ cancel_url }}">{% trans "cancel" %}</a>.
+                {% endif %}
+            </form>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}

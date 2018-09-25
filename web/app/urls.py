@@ -23,6 +23,7 @@ urlpatterns += i18n_patterns(
     url(r'^admin/', include(admin.site.urls)),  # NOQA
     url(r'^dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
     url(r'^accounts/', include('apps.customer.urls', namespace='customer')),
+    url(r'^organisation/', include('apps.organisation.urls', namespace='organisation')),
     url(r'^', include('cms.urls')),
 )
 

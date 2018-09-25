@@ -156,6 +156,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'webpack_loader',
     'mathfilters',
+    'qr_code',
     'app',
     'apps.core',
     'apps.customer',

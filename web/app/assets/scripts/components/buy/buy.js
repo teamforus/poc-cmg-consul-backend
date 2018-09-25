@@ -29,8 +29,8 @@ class ComponentBuy {
         this.root = element;
 
         this.initChildren();
-        this.initSubmit();
-        this.initRefresh();
+      //  this.initSubmit();
+      //  this.initRefresh();
     }
 
     initChildren = () => {

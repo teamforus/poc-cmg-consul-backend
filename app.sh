@@ -40,8 +40,12 @@ start() {
 
 migrate() {
     docker exec -it rd-cmg-consul-backend_web_1 python manage.py migrate
-
 }
+
+logs() {
+  docker logs rd-cmg-consul-backend_web_1
+}
+
 
 createsuperuser() {
     docker exec -it rd-cmg-consul-backend_web_1 python manage.py createsuperuser

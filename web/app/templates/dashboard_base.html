@@ -56,6 +56,11 @@
                         </span>
                     </a>
 
+                    <a class="layout-dashboard__sidebar-menu-item {% if request.resolver_match.url_name == 'organisation-index' %}layout-dashboard__sidebar-menu-item_active{% endif %}" href="{% url 'organisation:organisation-index' %}">
+                        <span class="layout-dashboard__sidebar-menu-item-text">
+                            Organisations
+                        </span>
+                    </a>
 
                     <a class="layout-dashboard__sidebar-menu-item" href="/accounts/logout">
                         <span class="layout-dashboard__sidebar-menu-item-text">
