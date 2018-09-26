@@ -14,11 +14,37 @@ class OrganisationManager(models.Manager):
         return self.get_queryset().filter(public_key=public_key)[:1].get()
 
     def get_by_organization_request_key(self, unique_key):
+        query_set = self.get_queryset().filter(
+            organisationrequest__in=OrganisationRequest.objects.filter(unique_key=unique_key))
+        if not query_set.exists():
+            return None
+        return query_set[:1].get()
+
+
+class OrganisationRequestManager(models.Manager):
+
+    def get_organization_request(self, unique_key):
         query_set = OrganisationRequest.objects.filter(unique_key=unique_key)
         if not query_set.exists():
             return None
-        organisation_request = query_set[:1].get()
-        return organisation_request.organisation
+        return query_set[:1].get()
+
+    def allow(self, unique_key, auth_token):
+        organization_request = self.get_organization_request(unique_key)
+        if organization_request is None:
+            return None
+        organization_request.status = STATUS_CHOICES_ALLOW
+        organization_request.auth_token = auth_token
+        organization_request.save()
+        return organization_request.status
+
+    def disallow(self, unique_key):
+        organization_request = self.get_organization_request(unique_key)
+        if organization_request is None:
+            return None
+        organization_request.status = STATUS_CHOICES_DISALLOW
+        organization_request.save()
+        return organization_request.status
 
 
 class OrganisationItem(models.Model):
@@ -65,22 +91,28 @@ class OrganisationItem(models.Model):
     objects = OrganisationManager()
 
 
+STATUS_CHOICES_NEW = 'new'
+STATUS_CHOICES_ALLOW = 'allow'
+STATUS_CHOICES_DISALLOW = 'disallow'
 STATUS_CHOICES = (
-    ("new", "NEW"),
-    ("allow", "ALLOW"),
-    ("disallow", "DISALLOW"),
+    (STATUS_CHOICES_NEW, "NEW"),
+    (STATUS_CHOICES_ALLOW, "ALLOW"),
+    (STATUS_CHOICES_DISALLOW, "DISALLOW"),
 )
+
 
 class OrganisationRequest(models.Model):
     unique_key = models.CharField(max_length=200, null=False, blank=False, unique=True)
 
     organisation = models.ForeignKey(OrganisationItem, on_delete=models.CASCADE,
-                              blank=False,
-                              null=False)
+                                     blank=False,
+                                     null=False)
 
     status = models.CharField(max_length=9,
-                             choices=STATUS_CHOICES,
-                             default="new")
+                              choices=STATUS_CHOICES,
+                              default=STATUS_CHOICES_NEW)
+
+    auth_token = models.CharField(max_length=200, null=True, blank=True, unique=True)
 
     # Metadata
     class Meta:
@@ -97,3 +129,4 @@ class OrganisationRequest(models.Model):
 
         super(OrganisationRequest, self).save(*args, **kwargs)
 
+    objects = OrganisationRequestManager()

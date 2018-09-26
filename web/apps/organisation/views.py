@@ -68,16 +68,52 @@ class LoginInfoView(LoginMixin, APIView):
     def get(self, request, format=None):
         key = self.request.GET.get('key', None)
         if key is None:
-            return Response("key required", status=status.HTTP_404_NOT_FOUND)
+            return Response("key required", status=status.HTTP_400_BAD_REQUEST)
 
-        organisation = self.get_info(key)
-        if organisation is None:
+        result = self.get_info(key)
+        if result is None:
             return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
 
-        return Response({'title': organisation.title, 'owner': organisation.owner.email, 'public_key': organisation.public_key}, status=status.HTTP_200_OK)
+        return Response(result, status=status.HTTP_200_OK)
 
     def post(self, request):
         raise MethodNotAllowed('POST')
+
+
+class LoginAllowView(LoginMixin, APIView):
+    serializer_class = serializers.LoginAllowSerializer
+
+    def get(self, request, format=None):
+        raise MethodNotAllowed('GET')
+
+    def post(self, request):
+        ser = self.serializer_class(data=request.data)
+        if ser.is_valid():
+            result = self.allow(ser.public_key, ser.auth_token)
+            if result is None:
+                return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
+
+            return Response({'result': result}, status=status.HTTP_200_OK)
+
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginDisallowView(LoginMixin, APIView):
+    serializer_class = serializers.LoginDisallowSerializer
+
+    def get(self, request, format=None):
+        raise MethodNotAllowed('GET')
+
+    def post(self, request):
+        ser = self.serializer_class(data=request.data)
+        if ser.is_valid():
+            result = self.disallow(ser.public_key)
+            if result is None:
+                return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
+
+            return Response({'result': result}, status=status.HTTP_200_OK)
+
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @condition(etag_func=qr_code_etag, last_modified_func=qr_code_last_modified)
