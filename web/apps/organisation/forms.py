@@ -11,3 +11,9 @@ class OrganisationRegisterForm(forms.ModelForm):
     class Meta:
         model = OrganisationItem
         fields = ('title', )
+
+
+class OrganisationEditForm(forms.ModelForm):
+    class Meta:
+        model = OrganisationItem
+        fields = ('title', 'public_key', 'private_key' )

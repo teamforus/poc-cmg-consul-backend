@@ -61,6 +61,15 @@ class LoginMixin(object):
 
 
 class RegisterOrganisationMixin(object):
+    def edit_register_organisation(self, form):
+        """
+        Create a user instance and send a new registration email (if configured
+        to).
+        """
+        organisation = form.save()
+
+        return organisation
+
     def register_organisation(self, form):
         """
         Create a user instance and send a new registration email (if configured

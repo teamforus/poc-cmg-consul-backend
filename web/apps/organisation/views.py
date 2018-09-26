@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 # Create your views here.
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.http import condition
 from qr_code.qrcode.image import PNG_FORMAT_NAME, PilImageOrFallback, SVG_FORMAT_NAME, SvgPathImage
@@ -17,12 +18,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.organisation import serializers
-from apps.organisation.forms import OrganisationRegisterForm
+from apps.organisation.decorators import allow_user_organisations
+from apps.organisation.forms import OrganisationRegisterForm, OrganisationEditForm
 from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError
 from apps.organisation.models import OrganisationItem
 
 
-class RegistraterView(RegisterOrganisationMixin, generic.FormView):
+class CreateOrganisationView(RegisterOrganisationMixin, generic.FormView):
     form_class = OrganisationRegisterForm
     template_name = 'organisation/index.html'
     redirect_field_name = 'next'
@@ -44,6 +46,28 @@ class RegistraterView(RegisterOrganisationMixin, generic.FormView):
     def form_valid(self, form):
         self.register_organisation(form)
         return redirect(self.get_redirect())
+
+
+def get_redirect():
+    return reverse('organisation:organisation-index')
+
+
+@method_decorator(allow_user_organisations, name='dispatch')
+class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
+    form_class = OrganisationEditForm
+    template_name = 'organisation/edit.html'
+    redirect_field_name = 'next'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditOrganisationView, self).get_context_data(**kwargs)
+
+        context['organisation'] = self.request.organisation
+
+        return context
+
+    def get_object(self, queryset=None):
+        return self.request.organisation
+
 
 
 class CreateLoginView(LoginMixin, APIView):

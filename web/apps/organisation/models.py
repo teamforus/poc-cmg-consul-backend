@@ -1,7 +1,7 @@
 import random
 import string
 
-from cms.models import User
+from cms.models import User, reverse
 from django.db import models
 
 
@@ -66,8 +66,12 @@ class OrganisationItem(models.Model):
         ordering = ["-pk"]
 
     # Methods
+
     def get_absolute_url(self):
-        return '1'  # reverse('model-detail-view', args=[str(self.id)])
+        return self.get_edit_url()
+
+    def get_edit_url(self) -> object:
+        return reverse('organisation:organisation-edit-item', args=[str(self.id)])
 
     def get_qr_request_url(self):
         if self.public_key:
@@ -79,6 +83,9 @@ class OrganisationItem(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_script(self):
+        return '<script type="text/props"> { "FORUS_API_KEY": "' + self.public_key + '" } </script> <script async src="<FILE_PATH>" type="text/javascript"></script>'
 
     def save(self, *args, **kwargs):
         if not self.public_key:
