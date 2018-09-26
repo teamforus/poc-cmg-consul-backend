@@ -5,6 +5,7 @@
 
 static/
 
+web/app/static/
 !web/app/static/login.js
 
 
