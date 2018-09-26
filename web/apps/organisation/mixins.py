@@ -1,10 +1,17 @@
-from cms.models import User
+from apps.organisation.models import OrganisationRequest, OrganisationItem
 
-from apps.customer.signals import user_registered
 
-from django.conf import settings
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import authenticate
+class LoginMixin(object):
+
+    def create_login(self, public_key):
+        request = OrganisationRequest()
+        request.organisation = OrganisationItem.objects.get_by_public_key(public_key)
+
+        request.save()
+        return request.unique_key
+
+    def get_info(self, key):
+        return OrganisationItem.objects.get_by_organization_request_key(key)
 
 
 class RegisterOrganisationMixin(object):

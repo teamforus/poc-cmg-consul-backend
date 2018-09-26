@@ -1,4 +1,3 @@
-import base64
 from io import BytesIO
 
 from django.http import HttpResponse
@@ -12,9 +11,14 @@ from qr_code.qrcode.maker import make_qr_code_image
 from qr_code.qrcode.serve import qr_code_etag, \
     qr_code_last_modified
 from qr_code.views import get_qr_code_option_from_request, cache_qr_code
+from rest_framework import status
+from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from apps.organisation import serializers
 from apps.organisation.forms import OrganisationRegisterForm
-from apps.organisation.mixins import RegisterOrganisationMixin
+from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin
 from apps.organisation.models import OrganisationItem
 
 
@@ -42,6 +46,40 @@ class RegistraterView(RegisterOrganisationMixin, generic.FormView):
         return redirect(self.get_redirect())
 
 
+class CreateLoginView(LoginMixin, APIView):
+    serializer_class = serializers.CreateLoginSerializer
+
+    def get(self, request, format=None):
+        raise MethodNotAllowed('GET')
+
+    def post(self, request):
+        ser = self.serializer_class(data=request.data)
+        if ser.is_valid():
+            result = self.create_login(ser.public_key)
+
+            return Response({'token': result}, status=status.HTTP_200_OK)
+
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginInfoView(LoginMixin, APIView):
+    serializer_class = serializers.CreateLoginSerializer
+
+    def get(self, request, format=None):
+        key = self.request.GET.get('key', None)
+        if key is None:
+            return Response("key required", status=status.HTTP_404_NOT_FOUND)
+
+        organisation = self.get_info(key)
+        if organisation is None:
+            return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'title': organisation.title, 'owner': organisation.owner.email, 'public_key': organisation.public_key}, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        raise MethodNotAllowed('POST')
+
+
 @condition(etag_func=qr_code_etag, last_modified_func=qr_code_last_modified)
 @cache_qr_code()
 def serve_qr_code_image(request):
@@ -49,7 +87,7 @@ def serve_qr_code_image(request):
     qr_code_options = get_qr_code_option_from_request(request)
     text = request.GET.get('text', '')
 
-    text = "{'type': 'login', value: '"+ text + "'}"
+    text = "{'type': 'login', value: '" + text + "'}"
     img = make_qr_code_image(text,
                              image_factory=SvgPathImage if qr_code_options.image_format == SVG_FORMAT_NAME else PilImageOrFallback,
                              qr_code_options=qr_code_options)
