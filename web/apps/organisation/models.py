@@ -23,26 +23,29 @@ class OrganisationManager(models.Manager):
 
 class OrganisationRequestManager(models.Manager):
 
-    def get_organization_request(self, unique_key):
+    def get_by_key(self, unique_key):
         query_set = OrganisationRequest.objects.filter(unique_key=unique_key)
         if not query_set.exists():
             return None
         return query_set[:1].get()
 
-    def allow(self, unique_key, auth_token):
-        organization_request = self.get_organization_request(unique_key)
+    def allow(self, unique_key, auth_token, fields_json):
+        organization_request = self.get_by_key(unique_key)
         if organization_request is None:
             return None
         organization_request.status = STATUS_CHOICES_ALLOW
         organization_request.auth_token = auth_token
+        organization_request.data = fields_json
         organization_request.save()
         return organization_request.status
 
     def disallow(self, unique_key):
-        organization_request = self.get_organization_request(unique_key)
+        organization_request = self.get_by_key(unique_key)
         if organization_request is None:
             return None
         organization_request.status = STATUS_CHOICES_DISALLOW
+        organization_request.auth_token = None
+        organization_request.data = None
         organization_request.save()
         return organization_request.status
 
@@ -102,6 +105,7 @@ STATUS_CHOICES = (
 
 
 class OrganisationRequest(models.Model):
+
     unique_key = models.CharField(max_length=200, null=False, blank=False, unique=True)
 
     organisation = models.ForeignKey(OrganisationItem, on_delete=models.CASCADE,
@@ -112,7 +116,9 @@ class OrganisationRequest(models.Model):
                               choices=STATUS_CHOICES,
                               default=STATUS_CHOICES_NEW)
 
-    auth_token = models.CharField(max_length=200, null=True, blank=True, unique=True)
+    auth_token = models.CharField(max_length=200, null=True, blank=True)
+
+    data = models.CharField(max_length=1000, null=True, blank=True)
 
     # Metadata
     class Meta:

@@ -18,7 +18,7 @@ from rest_framework.views import APIView
 
 from apps.organisation import serializers
 from apps.organisation.forms import OrganisationRegisterForm
-from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin
+from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError
 from apps.organisation.models import OrganisationItem
 
 
@@ -70,11 +70,11 @@ class LoginInfoView(LoginMixin, APIView):
         if key is None:
             return Response("key required", status=status.HTTP_400_BAD_REQUEST)
 
-        result = self.get_info(key)
-        if result is None:
-            return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
-
-        return Response(result, status=status.HTTP_200_OK)
+        try:
+            result = self.get_info(key)
+            return Response(result, status=status.HTTP_200_OK)
+        except LoginError as e:
+            return Response({'message': e.message}, status=e.http_status)
 
     def post(self, request):
         raise MethodNotAllowed('POST')
@@ -89,11 +89,11 @@ class LoginAllowView(LoginMixin, APIView):
     def post(self, request):
         ser = self.serializer_class(data=request.data)
         if ser.is_valid():
-            result = self.allow(ser.public_key, ser.auth_token)
-            if result is None:
-                return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
-
-            return Response({'result': result}, status=status.HTTP_200_OK)
+            try:
+                result = self.allow(ser.public_key, ser.auth_token)
+                return Response({'status': result}, status=status.HTTP_200_OK)
+            except LoginError as e:
+                return Response({'message': e.message}, status=e.http_status)
 
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,11 +107,11 @@ class LoginDisallowView(LoginMixin, APIView):
     def post(self, request):
         ser = self.serializer_class(data=request.data)
         if ser.is_valid():
-            result = self.disallow(ser.public_key)
-            if result is None:
-                return Response("key is invalid", status=status.HTTP_404_NOT_FOUND)
-
-            return Response({'result': result}, status=status.HTTP_200_OK)
+            try:
+                result = self.disallow(ser.public_key)
+                return Response({'status': result}, status=status.HTTP_200_OK)
+            except LoginError as e:
+                return Response({'message': e.message}, status=e.http_status)
 
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
