@@ -45,6 +45,15 @@ function showToken(token){
         popupWrapper.style.display = 'none';
     });
 
+    window.setInterval(function(){
+        check_login()
+    }, 1000);
+
+}
+
+function check_login() {
+
 }
 
 //data.FORUS_API_KEY
+

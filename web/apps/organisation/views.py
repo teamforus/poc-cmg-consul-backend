@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import condition
 from qr_code.qrcode.image import PNG_FORMAT_NAME, PilImageOrFallback, SVG_FORMAT_NAME, SvgPathImage
 from qr_code.qrcode.maker import make_qr_code_image
@@ -53,6 +54,7 @@ def get_redirect():
 
 
 @method_decorator(allow_user_organisations, name='dispatch')
+
 class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
     form_class = OrganisationEditForm
     template_name = 'organisation/edit.html'
@@ -67,7 +69,6 @@ class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.organisation
-
 
 
 class CreateLoginView(LoginMixin, APIView):
