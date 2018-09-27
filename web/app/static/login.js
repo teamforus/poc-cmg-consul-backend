@@ -97,5 +97,58 @@ function check_login(token) {
     xmlhttp.send(JSON.stringify({}));
 }
 
+function showPopup(contents) {
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100000; text-align: center; background-color: rgba(0, 0, 0, 0.2); font-family: "IBM Plex Sans", sans-serif; font-size: 16px';
+    wrapper.addEventListener('click', close, false);
+    wrapper.appendChild(contents);
+
+    document.body.append(wrapper);
+
+    function close(event) {
+        if (event.target === wrapper) {
+            wrapper.removeEventListener('click', close, false);
+            wrapper.parentNode.removeChild(wrapper);
+        }
+    }
+}
+
+function showSuccess(rawHtml) {
+    var popup = document.createElement('div');
+    popup.style.cssText = 'position: relative; width: 300px; padding: 50px; background-color: white; display: inline-block; top: 30%'
+
+    popup.innerHTML = '<div>'
+        + '<span style="font-size: 68px; color: #8cbe3a">&#x2713;</span>'
+        + '<div style="margin-top: 2em; font-size: 16px; text-align: left">' + rawHtml + '</div>'
+        + '</div>';
+
+
+    showPopup(popup);
+}
+
+function showError(rawHtml) {
+    var popup = document.createElement('div');
+    popup.style.cssText = 'position: relative; width: 300px; padding: 50px; background-color: white; display: inline-block; top: 30%'
+
+    popup.innerHTML = '<div>'
+        + '<span style="font-size: 68px">&#x2715;</span>'
+        + '<div style="margin-top: 2em; font-size: 16px; text-align: left">' + rawHtml + '</div>'
+        + '</div>';
+
+
+    showPopup(popup);
+}
+
+if (Math.random() > 0.5) {
+    showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:geert@inwoneremmen.nl">geert@inwoneremmen.nl</a></p>');
+} else {
+    showError('<p style="font-size: 18px">Helaas, u bent niet stemgerechtigd</p>'
+              + '<ul style="list-style: none">'
+              + '<li>&mdash; Woont in Angelslo</li>'
+              + '<li>&mdash; Ouder bent dan 18</li>'
+              + '</ul>'
+              + '<p>Klopt dit niet? Neem contact op met: <a href="mailto:info@emmen.nl">info@emmen.nl</a></p>');
+}
+
 //data.FORUS_API_KEY
 
