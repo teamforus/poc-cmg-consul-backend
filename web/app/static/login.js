@@ -27,7 +27,6 @@ button.addEventListener("click", function(){
 
 }, false);
 
-
 function showToken(token){
     var forus_popup = document.getElementById('forus_popup')
 
