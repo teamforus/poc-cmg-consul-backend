@@ -1,4 +1,5 @@
 
+var host = "http://136.144.185.49/"
 
 var forusConfig = JSON.parse(document.getElementById('forus_params').text)
 
@@ -14,7 +15,7 @@ button.addEventListener("click", function(){
     };
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open('POST', "/en/organisation/create_login/?format=json", true);
+    xmlhttp.open('POST', host + "en/organisation/create_login/?format=json", true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState != 4) return;
@@ -33,7 +34,7 @@ function showToken(token){
     forus_popup.innerHTML = "<div id='forus_popup_wrapper' style='display:flex;position:fixed;top:0;right:0;bottom:0;left:0;justify-content:center;align-items:center;background-color:rgba(0,0,0,.2);'>" +
             "<div style='background-color:#fff;padding:20px;position:relative'>" +
                 "<div id='forus_popup_close' style='display:flex;justify-content:center;align-items:center;background:#fff;border-radius:15px;width:30px;height:30px;position:absolute;top:-40px;right:0px;cursor:pointer'><img style='width:15px' src='https://freeiconshop.com/wp-content/uploads/edd/cross-solid.png'/></div>" +
-                "<img src='" + "/en/organisation/qr/?text=" +  token +  "' style='max-width: 300px;' />"+
+                "<img src='" + host + "en/organisation/qr/?text=" +  token +  "' style='max-width: 300px;' />"+
             "</div>"+
         "</div>";
 
