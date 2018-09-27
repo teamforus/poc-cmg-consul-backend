@@ -85,7 +85,7 @@ class OrganisationItem(models.Model):
         return self.name
 
     def get_script(self):
-        return '<div id="forus_button"></div><script type="text/props" id="forus_params"> { "FORUS_API_KEY": "' + self.public_key + '" } </script> <script async src="http://13/static/login.js/" type="text/javascript"></script>'
+        return '<div id="forus_button"></div><script type="text/props" id="forus_params"> { "FORUS_API_KEY": "' + self.public_key + '" } </script> <script async src="http://136.144.185.49/static/login.js/" type="text/javascript"></script>'
 
     def save(self, *args, **kwargs):
         if not self.public_key:
