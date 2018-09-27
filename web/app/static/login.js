@@ -89,7 +89,16 @@ function check_login(token) {
         if (result.status != 'new') {
             if (lastStatus != result.status) {
                 lastStatus = result.status
-                alert(result.status)
+                if (lastStatus == 'allow') {
+                     showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:geert@inwoneremmen.nl">geert@inwoneremmen.nl</a></p>');
+                } else {
+                     showError('<p style="font-size: 18px">Helaas, u bent niet stemgerechtigd</p>'
+                                  + '<ul style="list-style: none">'
+                                  + '<li>&mdash; Woont in Angelslo</li>'
+                                  + '<li>&mdash; Ouder bent dan 18</li>'
+                                  + '</ul>'
+                                  + '<p>Klopt dit niet? Neem contact op met: <a href="mailto:info@emmen.nl">info@emmen.nl</a></p>');
+                                    }
             }
         }
 
@@ -137,17 +146,6 @@ function showError(rawHtml) {
 
 
     showPopup(popup);
-}
-
-if (Math.random() > 0.5) {
-    showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:geert@inwoneremmen.nl">geert@inwoneremmen.nl</a></p>');
-} else {
-    showError('<p style="font-size: 18px">Helaas, u bent niet stemgerechtigd</p>'
-              + '<ul style="list-style: none">'
-              + '<li>&mdash; Woont in Angelslo</li>'
-              + '<li>&mdash; Ouder bent dan 18</li>'
-              + '</ul>'
-              + '<p>Klopt dit niet? Neem contact op met: <a href="mailto:info@emmen.nl">info@emmen.nl</a></p>');
 }
 
 //data.FORUS_API_KEY
