@@ -45,7 +45,7 @@ ROOT_URLCONF = 'app.urls'
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'nl'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -177,15 +177,15 @@ WEBPACK_LOADER = {
 
 LANGUAGES = (
     ## Customize this
-    ('nl', gettext('nl')),
+    ('en', gettext('en')),
 )
 
 CMS_LANGUAGES = {
     ## Customize this
     1: [
         {
-            'code': 'nl',
-            'name': gettext('nl'),
+            'code': 'en',
+            'name': gettext('en'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
