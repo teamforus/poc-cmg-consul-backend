@@ -1,4 +1,5 @@
 import os  # isort:skip
+
 gettext = lambda s: s
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
@@ -18,7 +19,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -30,7 +30,6 @@ DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = ['localhost', '*']
 
-
 # Application definition
 
 
@@ -38,9 +37,6 @@ ALLOWED_HOSTS = ['localhost', '*']
 
 
 ROOT_URLCONF = 'app.urls'
-
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -55,7 +51,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -69,7 +64,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'app', 'assets'),
 )
 SITE_ID = 1
-
 
 TEMPLATES = [
     {
@@ -104,12 +98,10 @@ TEMPLATES = [
     },
 ]
 
-
 AUTHENTICATION_BACKENDS = (
     'apps.customer.auth_backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-
 
 MIDDLEWARE = (
     'cms.middleware.utils.ApphookReloadMiddleware',
@@ -220,9 +212,8 @@ DATABASES = {
     }
 }
 
-
 MIGRATION_MODULES = {
-    
+
 }
 
 THUMBNAIL_PROCESSORS = (
@@ -232,8 +223,15 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters'
 )
 
-
-
-HOMEPAGE='/'
+HOMEPAGE = '/'
 LOGIN_REDIRECT_URL = 'dashboard:index'
-COOKIES_DELETE_ON_LOGOUT=True
+COOKIES_DELETE_ON_LOGOUT = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DEFAULT_RENDERER_CLASSES': (
+        #   'rest_framework.renderers.XMLRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        #   'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}

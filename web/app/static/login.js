@@ -14,7 +14,7 @@ button.addEventListener("click", function(){
     };
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open('POST', "/en/organisation/create_login/?format=json", true);
+    xmlhttp.open('GET', "/en/organisation/create_login/?public_key="+forusConfig.FORUS_API_KEY, true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState != 4) return;

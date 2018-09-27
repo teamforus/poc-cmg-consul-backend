@@ -1,5 +1,7 @@
 import json
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 
 from apps.organisation.forus import ForusApi
@@ -11,6 +13,13 @@ class LoginError(Exception):
         super().__init__(message)
         self.message = message
         self.http_status = http_status
+
+
+class CSRFExemptMixin(object):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 
 class LoginMixin(object):

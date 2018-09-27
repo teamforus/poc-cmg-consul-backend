@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 from apps.organisation import serializers
 from apps.organisation.decorators import allow_user_organisations
 from apps.organisation.forms import OrganisationRegisterForm, OrganisationEditForm
-from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError
+from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError, CSRFExemptMixin
 from apps.organisation.models import OrganisationItem
 
 
@@ -72,19 +72,19 @@ class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
 
 
 class CreateLoginView(LoginMixin, APIView):
+    authentication_classes = []
+
     serializer_class = serializers.CreateLoginSerializer
 
-    def get(self, request, format=None):
-        raise MethodNotAllowed('GET')
+    # def get(self, request, format=None):
+    #     raise MethodNotAllowed('GET')
 
-    def post(self, request):
-        ser = self.serializer_class(data=request.data)
-        if ser.is_valid():
-            result = self.create_login(ser.public_key)
 
-            return Response({'token': result}, status=status.HTTP_200_OK)
+    def get(self, request):
 
-        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        result = self.create_login(request.GET.get('public_key'))
+
+        return Response({'token': result}, status=status.HTTP_200_OK)
 
 
 class LoginInfoView(LoginMixin, APIView):
