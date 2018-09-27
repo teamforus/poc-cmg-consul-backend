@@ -239,12 +239,4 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ORIGIN_WHITELIST = (
-    'google.com',
-    'hostname.example.com',
-    'localhost:8000',
-    'localhost:80',
-    'localhost',
-    '127.0.0.1:9000',
-    '*'
-)
+CORS_ORIGIN_REGEX_WHITELIST = (r'^.*$', )
