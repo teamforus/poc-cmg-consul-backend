@@ -45,13 +45,27 @@ function showToken(token){
     });
 
     window.setInterval(function(){
-        check_login()
+        check_login(token)
     }, 1000);
 
 }
 
-function check_login() {
+function check_login(token) {
 
+
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    xmlhttp.open('GET', host + "en/organisation/login/info/?key="+token, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState != 4) return;
+
+        result = JSON.parse(this.responseText)
+        if (result.status != 'new') {
+            alert(result.status)
+        }
+
+    }
+    xmlhttp.send(JSON.stringify({}));
 }
 
 //data.FORUS_API_KEY
