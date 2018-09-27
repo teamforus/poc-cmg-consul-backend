@@ -13,7 +13,7 @@ from qr_code.qrcode.maker import make_qr_code_image
 from qr_code.qrcode.serve import qr_code_etag, \
     qr_code_last_modified
 from qr_code.views import get_qr_code_option_from_request, cache_qr_code
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -21,7 +21,8 @@ from rest_framework.views import APIView
 from apps.organisation import serializers
 from apps.organisation.decorators import allow_user_organisations
 from apps.organisation.forms import OrganisationRegisterForm, OrganisationEditForm
-from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError, CSRFExemptMixin
+from apps.organisation.mixins import RegisterOrganisationMixin, LoginMixin, LoginError, \
+    CsrfExemptSessionAuthentication
 from apps.organisation.models import OrganisationItem
 
 
@@ -72,6 +73,8 @@ class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
 
 
 class CreateLoginView(LoginMixin, APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = (CsrfExemptSessionAuthentication,)
     serializer_class = serializers.CreateLoginSerializer
 
     def get(self, request, format=None):
