@@ -72,19 +72,20 @@ class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
 
 
 class CreateLoginView(LoginMixin, APIView):
-    authentication_classes = []
-
     serializer_class = serializers.CreateLoginSerializer
 
-    # def get(self, request, format=None):
-    #     raise MethodNotAllowed('GET')
+    def get(self, request, format=None):
+        raise MethodNotAllowed('GET')
 
 
-    def get(self, request):
+    def post(self, request):
+        ser = self.serializer_class(data=request.data)
+        if ser.is_valid():
+            result = self.create_login(ser.public_key)
 
-        result = self.create_login(request.GET.get('public_key'))
+            return Response({'token': result}, status=status.HTTP_200_OK)
 
-        return Response({'token': result}, status=status.HTTP_200_OK)
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginInfoView(LoginMixin, APIView):
