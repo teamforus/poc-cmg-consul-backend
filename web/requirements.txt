@@ -32,3 +32,4 @@ djangorestframework==3.8.2
 django-qr-code==1.0.0
 
 requests==2.18.4
+django-cors-headers==2.4.0

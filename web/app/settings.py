@@ -115,7 +115,8 @@ MIDDLEWARE = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware'
+    'cms.middleware.language.LanguageCookieMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -153,7 +154,8 @@ INSTALLED_APPS = (
     'apps.core',
     'apps.customer',
     'apps.dashboard',
-    'apps.organisation'
+    'apps.organisation',
+    'corsheaders',
 )
 
 WEBPACK_LOADER = {
