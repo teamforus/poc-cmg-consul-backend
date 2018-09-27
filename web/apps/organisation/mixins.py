@@ -38,7 +38,7 @@ class LoginMixin(object):
         if organisation_request is None or organisation is None:
             raise LoginError('Key is invalid', status.HTTP_404_NOT_FOUND)
 
-        return {'key': organisation_request.unique_key, 'status': organisation_request.status, 'auth_token': organisation_request.auth_token, 'data': organisation_request.data,
+        return {'key': organisation_request.unique_key, 'data': organisation_request.data, 'status': organisation_request.status, 'auth_token': organisation_request.auth_token, 'data': organisation_request.data,
                 'organization': {'title': organisation.title, 'owner': organisation.owner.email, 'public_key': organisation.public_key}}
 
     def allow(self, key, auth_token):
