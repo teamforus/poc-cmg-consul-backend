@@ -7,7 +7,6 @@ var forusConfig = JSON.parse(document.getElementById('forus_params').text)
 var forus_div = document.getElementById('forus_button')
 
 forus_div.innerHTML = "<div id='forus_popup'></div><div id='forus_login_button' style='cursor:pointer;padding: 15px;background-color:blue;color:white;font-family:sans-serif;text-transform:uppercase;display:inline-block;'> Forus login identity</div>"
-
 var button = document.getElementById("forus_login_button");
 button.addEventListener("click", function(){
     var data = {
