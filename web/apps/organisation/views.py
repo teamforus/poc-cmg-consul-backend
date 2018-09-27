@@ -55,7 +55,6 @@ def get_redirect():
 
 
 @method_decorator(allow_user_organisations, name='dispatch')
-
 class EditOrganisationView(RegisterOrganisationMixin, generic.UpdateView):
     form_class = OrganisationEditForm
     template_name = 'organisation/edit.html'
@@ -80,12 +79,10 @@ class CreateLoginView(LoginMixin, APIView):
     def get(self, request, format=None):
         raise MethodNotAllowed('GET')
 
-
     def post(self, request):
         ser = self.serializer_class(data=request.data)
         if ser.is_valid():
             result = self.create_login(ser.public_key)
-
             return Response({'token': result}, status=status.HTTP_200_OK)
 
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)

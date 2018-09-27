@@ -50,6 +50,8 @@ function showToken(token){
 
 }
 
+
+var lastStatus = ''
 function check_login(token) {
 
 
@@ -61,7 +63,10 @@ function check_login(token) {
 
         result = JSON.parse(this.responseText)
         if (result.status != 'new') {
-            alert(result.status)
+            if (lastStatus != result.status) {
+                lastStatus = result.status
+                alert(result.status)
+            }
         }
 
     }
