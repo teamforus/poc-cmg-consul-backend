@@ -13,7 +13,6 @@ server {
         # Simple requests
         if ($request_method ~* "(GET|POST)") {
             add_header "Access-Control-Allow-Origin"  *;
-
         }
 
         # Preflighted requests
@@ -21,7 +20,7 @@ server {
           add_header "Access-Control-Allow-Origin"  *;
           add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
           add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-          return 200;
+          return 204;
         }
 
         proxy_pass http://web:8000;
