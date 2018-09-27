@@ -116,7 +116,7 @@ MIDDLEWARE = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+#    'corsheaders.middleware.CorsMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -229,14 +229,14 @@ HOMEPAGE = '/'
 LOGIN_REDIRECT_URL = 'dashboard:index'
 COOKIES_DELETE_ON_LOGOUT = True
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
-    'DEFAULT_RENDERER_CLASSES': (
-        #   'rest_framework.renderers.XMLRenderer',
-        'rest_framework.renderers.JSONRenderer',
-        #   'rest_framework.renderers.BrowsableAPIRenderer',
-    )
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+#     'DEFAULT_RENDERER_CLASSES': (
+#         #   'rest_framework.renderers.XMLRenderer',
+#         'rest_framework.renderers.JSONRenderer',
+#         #   'rest_framework.renderers.BrowsableAPIRenderer',
+#     )
+# }
 
 
-CORS_ORIGIN_REGEX_WHITELIST = (r'^.*$', )
+# CORS_ORIGIN_REGEX_WHITELIST = (r'^.*$', )
