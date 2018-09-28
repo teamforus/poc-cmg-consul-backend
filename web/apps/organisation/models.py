@@ -6,7 +6,6 @@ from django.db import models
 
 
 class OrganisationManager(models.Manager):
-
     def get_user_organisations(self, user):
         return self.get_queryset().filter(owner=user).all()
 
@@ -22,21 +21,22 @@ class OrganisationManager(models.Manager):
 
 
 class OrganisationRequestManager(models.Manager):
-
     def get_by_key(self, unique_key):
         query_set = OrganisationRequest.objects.filter(unique_key=unique_key)
         if not query_set.exists():
             return None
         return query_set[:1].get()
 
-    def allow(self, unique_key, auth_token, fields_json):
+    def allow(self, unique_key, auth_token, fields_json, is_subscribe):
         organization_request = self.get_by_key(unique_key)
         if organization_request is None:
             return None
         organization_request.status = STATUS_CHOICES_ALLOW
         organization_request.auth_token = auth_token
         organization_request.data = fields_json
+        organization_request.is_subscribe = is_subscribe
         organization_request.save()
+
         return organization_request.status
 
     def disallow(self, unique_key):
@@ -112,7 +112,6 @@ STATUS_CHOICES = (
 
 
 class OrganisationRequest(models.Model):
-
     unique_key = models.CharField(max_length=200, null=False, blank=False, unique=True)
 
     organisation = models.ForeignKey(OrganisationItem, on_delete=models.CASCADE,
@@ -124,6 +123,8 @@ class OrganisationRequest(models.Model):
                               default=STATUS_CHOICES_NEW)
 
     auth_token = models.CharField(max_length=200, null=True, blank=True)
+
+    is_subscribe = models.BooleanField(default=False, null=False, blank=False)
 
     data = models.CharField(max_length=1000, null=True, blank=True)
 

@@ -116,7 +116,7 @@ class LoginAllowView(LoginMixin, APIView):
         ser = self.serializer_class(data=request.data)
         if ser.is_valid():
             try:
-                result = self.allow(ser.public_key, ser.auth_token)
+                result = self.allow(ser.public_key, ser.auth_token, ser.is_subscribe)
                 return Response({'status': result}, status=status.HTTP_200_OK)
             except LoginError as e:
                 return Response({'message': e.message}, status=e.http_status)

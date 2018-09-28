@@ -41,7 +41,7 @@ class LoginMixin(object):
         return {'key': organisation_request.unique_key, 'data': organisation_request.data, 'status': organisation_request.status, 'auth_token': organisation_request.auth_token, 'data': organisation_request.data,
                 'organization': {'title': organisation.title, 'owner': organisation.owner.email, 'public_key': organisation.public_key}}
 
-    def allow(self, key, auth_token):
+    def allow(self, key, auth_token, is_subscribe):
         organization_request = OrganisationRequest.objects.get_by_key(key)
         if not organization_request:
             raise LoginError('Key is invalid', status.HTTP_404_NOT_FOUND)
@@ -58,7 +58,7 @@ class LoginMixin(object):
                     break
 
         fields_json = json.dumps(fields)
-        return OrganisationRequest.objects.allow(key, auth_token, fields_json)
+        return OrganisationRequest.objects.allow(key, auth_token, fields_json, is_subscribe)
 
     def disallow(self, key):
         organization_request = OrganisationRequest.objects.get_by_key(key)
