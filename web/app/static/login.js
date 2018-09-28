@@ -97,7 +97,14 @@ function check_login(token) {
                          if (parse_data[i].key == "primary_email")
                              email = parse_data[i].value
                      }
-                     showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:'+email+'">'+email+'</a></p>');
+
+                     text = '<p style="font-size: 18px">Uw stem is geregistreerd </p>'
+                     if (!parse_data.is_subscribe && email.length > 0) {
+                         text += '<p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:'+email+'">'+email+'</a></p>'
+                     }
+
+
+                     showSuccess(text);
                 } else {
                      showError('<p style="font-size: 18px">Helaas, u bent niet stemgerechtigd</p>'
                                   + '<ul style="list-style: none">'
