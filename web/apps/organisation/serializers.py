@@ -14,7 +14,7 @@ class LoginAllowSerializer(serializers.Serializer):
     key = serializers.CharField(max_length=200, required=True)
     auth_token = serializers.CharField(max_length=200, required=True)
 
-    is_subscribe = serializers.BooleanField(required=False, default=False)
+    is_subscribe = serializers.BooleanField(required=False, default=True)
 
     def validate(self, attrs):
 
