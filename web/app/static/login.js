@@ -99,7 +99,7 @@ function check_login(token) {
                      }
 
                      text = '<p style="font-size: 18px">Uw stem is geregistreerd </p>'
-                     if (parse_data.is_subscribe && email.length > 0) {
+                     if (result.is_subscribe && email.length > 0) {
                          text += '<p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:'+email+'">'+email+'</a></p>'
                      }
 
