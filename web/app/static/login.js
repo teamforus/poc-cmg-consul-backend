@@ -90,7 +90,14 @@ function check_login(token) {
             if (lastStatus != result.status) {
                 lastStatus = result.status
                 if (lastStatus == 'allow') {
-                     showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:geert@inwoneremmen.nl">geert@inwoneremmen.nl</a></p>');
+                     var email = ''
+                     var parse_data = JSON.parse(result.data)
+
+                     for (var i = 0; i < parse_data.length; i++) {
+                         if (parse_data[i].key == "primary_email")
+                             email = parse_data[i].value
+                     }
+                     showSuccess('<p style="font-size: 18px">Uw stem is geregistreerd</p><p>We zullen u informeren over de uitslag en voortgang via <a href="mailto:'+email+'">'+email+'</a></p>');
                 } else {
                      showError('<p style="font-size: 18px">Helaas, u bent niet stemgerechtigd</p>'
                                   + '<ul style="list-style: none">'
